@@ -10,7 +10,7 @@
         },
         {
             "name": "Linux",
-            "includePath": ["/usr/include","/usr/include/c++/4.8.4"],
+            "includePath": ["/usr/include","/usr/include/c++/4.8.4","~/DJI/Onboard-SDK/osdk-wrapper/inc","~/DJI/Onboard-SDK/osdk-core/inc","~/DJI/Onboard-SDK/platform/linux/inc"],
             "browse" : {
                 "limitSymbolsToIncludedHeaders" : false,
                 "databaseFilename" : ""

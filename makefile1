@@ -1,0 +1,15 @@
+# 指令编译器和选项  
+CC=g++
+TARGET=CalculatePosition  
+SRCS = CalculatePosition.cpp LinuxCamera.cpp Point.cpp  
+CFLAGS= -g -Wall -I./Onboard-SDK/osdk-core/inc/
+
+
+OBJS = $(SRCS:.cpp=.o)  
+CalculatePosition:CalculatePosition.o LinuxCamera.o Point.o
+	$(CC) CalculatePosition.o LinuxCamera.o Point.o -o $@ $^  
+clean:  
+	rm -rf $(TARGET) $(OBJS)  
+
+%.o:%.c  
+	$(CC) -g -Wall -I./Onboard-SDK/osdk-core/inc/ -o $@ -c $<  
