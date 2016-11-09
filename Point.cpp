@@ -5,7 +5,7 @@
 #define VERTICAL_ANGLE 72.0   //水平角
 #define HORIZONTAL_ANGLE 72.0 //俯仰角
 #define PICTURE_WIDTH 640.0   //图片水平宽度
-#define PICTURE_HEIGHT 320.0  //图片垂直高度
+#define PICTURE_HEIGHT 480.0  //图片垂直高度
 using namespace std;
 Point::Point(float x, float y, float z) : x(x), y(y), z(z)
 {
@@ -13,17 +13,18 @@ Point::Point(float x, float y, float z) : x(x), y(y), z(z)
 
 //计算人体质心相对于摄像头的坐标(前提是质心位于图片y轴上)
 //图片坐标系：右为x轴，上为y轴
+
 Point Point::Calculate_Point2Cam(float width, float y, float Cam_pitch) ///pitch云台俯角，直接从机器读出
 {
     Point Point2Cam(0.0, 0.0, 0.0);
-
+    y = PICTURE_HEIGHT/2 - y;
     float tan_alpha = (width / PICTURE_WIDTH) * tan(VERTICAL_ANGLE / 2); //alpha是图像中投影点水平角
 
     float Distance = BODY_WIDTH / (2 * tan_alpha);           //相机与人体距离(cm)
     float tan_beta = 2 * y * tan(HORIZONTAL_ANGLE / 2);      //beta是图像中投影点与图像中心夹角
     float theta = Cam_pitch * M_PI / 180.0 - atan(tan_beta); //x轴与相机人体连线的夹角rad
     Point2Cam.x = Distance * cos(theta);
-    Point2Cam.y = 0.0;                                       //理论值
+    Point2Cam.y = 0.0; //理论值
     Point2Cam.z = Distance * sin(theta);
     /* float angularSize = (VERTICAL_ANGLE * width / PICTURE_WIDTH) * M_PI / 180.0; //计算水平张角(单位：弧度)
 

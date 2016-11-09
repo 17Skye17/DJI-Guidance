@@ -21,16 +21,21 @@ using namespace DJI;
 using namespace DJI::onboardSDK;
 int main()
 {
-  float width = 100.0;    //人体在图像中的宽度(px)
+  float width = 100.0; //人体在图像中的宽度(px)
+  /*
+  图片坐标系定义
+  O—— —— ——x
+  |
+  |
+  |
+  y
+  */
+  //图片坐标（x0,y0)
+
   float y = 60.0;         //人体质心在图像中的y坐标(px)
   float Cam_yaw = 30.0;   //云台绕z轴旋转的角度 （degree)
   float Cam_pitch = 30.0; //云台绕y轴旋转的角度 (degree)
-  /* LinuxSerialDevice* serialDevice = new LinuxSerialDevice(UserConfig::deviceName, UserConfig::baudRate);
-  CoreAPI* api = new CoreAPI(serialDevice);
 
-  Camera* camera = new Camera(api);
-  //get Gimbal current rotation
-  RotationAngle rotation = getGimbalAngle(camera,20);*/
   Point point(0.0, 0.0, 0.0);
   Point point2Cam = point.Calculate_Point2Cam(width, y, Cam_pitch);
   Point point2Board = point.Calculate_Point2Board(point2Cam, Cam_yaw, Cam_pitch);
