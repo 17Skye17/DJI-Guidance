@@ -21,7 +21,7 @@ using namespace DJI;
 using namespace DJI::onboardSDK;
 int main()
 {
-  float width = 100.0; //人体在图像中的宽度(px)
+  float width = 73.0; //人体在图像中的宽度(px)
   /*
   图片坐标系定义
   O—— —— ——x
@@ -31,10 +31,9 @@ int main()
   y
   */
   //图片坐标（x0,y0)
-
-  float y = 60.0;         //人体质心在图像中的y坐标(px)
-  float Cam_yaw = 30.0;   //云台绕z轴旋转的角度 （degree)
-  float Cam_pitch = 30.0; //云台绕y轴旋转的角度 (degree)
+  float y = yMin + height / 2;         //人体质心在图像中的y坐标(px)
+  float Cam_yaw = 0.0;   //云台绕z轴旋转的角度 （degree)
+  float Cam_pitch = 0.0; //云台绕y轴旋转的角度 (degree)
 
   Point point(0.0, 0.0, 0.0);
   Point point2Cam = point.Calculate_Point2Cam(width, y, Cam_pitch);

@@ -1,7 +1,7 @@
 #include "Point.h"
 #include <math.h>
 #include <iostream>
-#define BODY_WIDTH 40.0       //cm  人体的真实宽度
+#define BODY_WIDTH 6.0        //cm  人体的真实宽度
 #define VERTICAL_ANGLE 72.0   //水平角
 #define HORIZONTAL_ANGLE 72.0 //俯仰角
 #define PICTURE_WIDTH 640.0   //图片水平宽度
@@ -18,11 +18,16 @@ Point Point::Calculate_Point2Cam(float width, float y, float Cam_pitch) ///pitch
 {
     Point Point2Cam(0.0, 0.0, 0.0);
     y = PICTURE_HEIGHT/2 - y;
-    float tan_alpha = (width / PICTURE_WIDTH) * tan(VERTICAL_ANGLE / 2); //alpha是图像中投影点水平角
+   /* float tan_alpha = (width / PICTURE_WIDTH) * tan((VERTICAL_ANGLE / 2) * M_PI / 180); //alpha是图像中投影点水平角
 
-    float Distance = BODY_WIDTH / (2 * tan_alpha);           //相机与人体距离(cm)
-    float tan_beta = 2 * y * tan(HORIZONTAL_ANGLE / 2);      //beta是图像中投影点与图像中心夹角
+    //11-11 TODO FIX DISTANCE
+    float Distance = BODY_WIDTH / (2 * tan_alpha); //相机与人体距离(cm)*/
+    float Distance=388.41*6*2/width;
+    cout << "Distance=" << Distance << endl;
+    float tan_beta = 2 * y * tan((HORIZONTAL_ANGLE / 2) * M_PI / 180) / PICTURE_WIDTH; //beta是图像中投影点与图像中心夹角
+    cout << "beta=" << atan(tan_beta) * 180 / M_PI << endl;
     float theta = Cam_pitch * M_PI / 180.0 - atan(tan_beta); //x轴与相机人体连线的夹角rad
+    cout << "theta=" << theta * 180 / M_PI << endl;
     Point2Cam.x = Distance * cos(theta);
     Point2Cam.y = 0.0; //理论值
     Point2Cam.z = Distance * sin(theta);
