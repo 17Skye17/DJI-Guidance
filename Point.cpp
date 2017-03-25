@@ -5,7 +5,8 @@
 #define VERTICAL_ANGLE 72.0   //水平角
 #define HORIZONTAL_ANGLE 72.0 //俯仰角
 #define PICTURE_WIDTH 640.0   //图片水平宽度
-#define PICTURE_HEIGHT 480.0  //图片垂直高度
+#define PICTURE_HEIGHT 360.0  //图片垂直高度
+#define CAM_K 388.41
 using namespace std;
 Point::Point(float x, float y, float z) : x(x), y(y), z(z)
 {
@@ -22,7 +23,7 @@ Point Point::Calculate_Point2Cam(float width, float y, float Cam_pitch) ///pitch
 
     //11-11 TODO FIX DISTANCE
     float Distance = BODY_WIDTH / (2 * tan_alpha); //相机与人体距离(cm)*/
-    float Distance=388.41*6*2/width;
+    float Distance=CAM_K*BODY_WIDTH*2/width;
     cout << "Distance=" << Distance << endl;
     float tan_beta = 2 * y * tan((HORIZONTAL_ANGLE / 2) * M_PI / 180) / PICTURE_WIDTH; //beta是图像中投影点与图像中心夹角
     cout << "beta=" << atan(tan_beta) * 180 / M_PI << endl;
